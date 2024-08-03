@@ -1,16 +1,13 @@
-$(document).on("scroll", function() {
-    var pageTop = $(document).scrollTop();
-    var pageBottom = pageTop + $(window).height();
-    var tags = $(".tag");
-  
-    for (var i = 0; i < tags.length; i++) {
-      var tag = tags[i];
-      if ($(tag).position().top < pageBottom) {
-        $(tag).addClass("visible");
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+      console.log(entry)
+      if (entry.isIntersecting) {
+          entry.target.classList.add('show');
       } else {
-        $(tag).removeClass("visible");
+          entry.target.classList.remove('show')
       }
-    }
   });
-  
-  
+});
+
+const hiddenElements = document.querySelectorAll('.hidden');
+hiddenElements.forEach((el) => observer.observe(el));
